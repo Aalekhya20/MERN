@@ -1,10 +1,14 @@
+// store.js
 import { configureStore } from '@reduxjs/toolkit';
-import authSlice from './features/auth/authSlice';
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import rootReducer, { history } from 'client\src\redux\rootReducer.js';
 
 const store = configureStore({
-    reducer :{
-        auth : authSlice.reducer
-    },
-})
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(routerMiddleware(history)),
+});
 
 export default store;
+
